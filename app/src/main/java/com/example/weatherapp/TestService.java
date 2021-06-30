@@ -1,11 +1,11 @@
-package com.example.weatherapp;
+    package com.example.weatherapp;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface TestService {
     @GET("getVilageFcst")
-    Call<Object> getTest(@Query("ServiceKey") String serviceKey,
+    Call<FcstResult> getTest(@Query("ServiceKey") String serviceKey,
                          @Query("pageNo") String pageNo,
                          @Query("numOfRows") String numOfRows,
                          @Query("dataType") String dataTye,
