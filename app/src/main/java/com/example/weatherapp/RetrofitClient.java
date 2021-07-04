@@ -7,10 +7,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
-    private static final String BASE_URL ="http://apis.data.go.kr/1360000/VilageFcstInfoService/";
+    private static final String BASE_URL ="http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/";
 
-    public static TestService getApiService() {
-        return getInstance().create(TestService.class);
+    public static FcstService getApiService() {
+        return getInstance().create(FcstService.class);
     }
 
     private static Retrofit getInstance() {

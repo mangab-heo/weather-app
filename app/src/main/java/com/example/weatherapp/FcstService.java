@@ -3,9 +3,9 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface TestService {
+public interface FcstService {
     @GET("getVilageFcst")
-    Call<FcstResult> getTest(@Query("ServiceKey") String serviceKey,
+    Call<FcstResult> getVilageFcst(@Query("serviceKey") String serviceKey,
                          @Query("pageNo") String pageNo,
                          @Query("numOfRows") String numOfRows,
                          @Query("dataType") String dataTye,
