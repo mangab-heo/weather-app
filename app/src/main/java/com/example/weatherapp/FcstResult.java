@@ -15,8 +15,7 @@ public class FcstResult {
         String fcstTime = listItem.get(0).fcstTime;
         WeatherHour weatherHour = new WeatherHour();
         weatherHour.fcstDate = listItem.get(0).fcstDate;
-        weatherHour.fcstTime = listItem.get(0).fcstTime;
-        int cnt = 0;
+        weatherHour.fcstTime = listItem.get(0).fcstTime.substring(0, 2) + ":" + listItem.get(0).fcstTime.substring(2);
         for (Item item : listItem) {
             if (!fcstTime.equals(item.fcstTime)) {
                 weatherData.addWeatherHour(weatherHour);
@@ -24,7 +23,7 @@ public class FcstResult {
 
                 weatherHour = new WeatherHour();
                 weatherHour.fcstDate = item.fcstDate;
-                weatherHour.fcstTime = item.fcstTime;
+                weatherHour.fcstTime = item.fcstTime.substring(0, 2) + ":" + item.fcstTime.substring(2);
             }
 
             if (item.category.equals(Category.TMN.getValue())) {

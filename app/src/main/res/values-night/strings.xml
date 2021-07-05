@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="weather_text">전국 구름 많음</string>
+    <string name="weather_text">구름 많음</string>
     <string name="temperature_text">26℃</string>
     <string name="dust_text">35㎍/㎥(1h)</string>
 </resources>

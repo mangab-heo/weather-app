@@ -2,6 +2,8 @@ package com.example.weatherapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
@@ -11,14 +13,14 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     WeatherData weatherData;
-
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String baseDate = "20210704";
+        String baseDate = "20210705";
         String baseTime = "1100";
         String nx = "60";
         String ny = "127";
@@ -28,11 +30,19 @@ public class MainActivity extends AppCompatActivity {
                 baseDate, baseTime, nx, ny)
                 .enqueue(new Callback<FcstResult>() {
                     @Override
-                    public void onResponse(@NonNull Call<FcstResult> call,@NonNull Response<FcstResult> response) {
+                    public void onResponse(@NonNull Call<FcstResult> call, @NonNull Response<FcstResult> response) {
                         FcstResult fcstResult = response.body();
 
                         if (fcstResult != null) {
                             weatherData = fcstResult.toWeatherData();
+
+                            RecyclerAdapter recyclerAdapter = new RecyclerAdapter(weatherData.getWeatherHours());
+
+                            recyclerView = findViewById(R.id.recyclerView);
+                            recyclerView.setAdapter(recyclerAdapter);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+
+                            recyclerAdapter.notifyDataSetChanged();
                         }
                     }
 
