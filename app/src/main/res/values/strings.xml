@@ -3,4 +3,6 @@
     <string name="weather_text">구름 많음</string>
     <string name="temperature_text">26℃</string>
     <string name="dust_text">35㎍/㎥(1h)</string>
+    <string name="suggest_permission_grant">위치를 가져오기 위해서는 위치 권한이 필요합니다.</string>
+    <string name="suggest_permission_grant_in_setting">위치 권한이 필요합니다. 확인을 누르면 설정 화면으로 이동합니다.</string>
 </resources>

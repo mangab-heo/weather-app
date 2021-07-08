@@ -5,7 +5,6 @@
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:paddingHorizontal="5dp"
-    android:background="@drawable/border_line_orange"
     >
     <ImageView
         android:id="@+id/weather_image_view"
@@ -14,13 +13,11 @@
         android:src="@drawable/sunny"
         android:padding="2dp"
         android:scaleType="fitCenter"
-        android:background="@drawable/border_line_green"
         android:contentDescription="weather_image" />
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@drawable/border_line_orange"
         >
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
@@ -29,7 +26,6 @@
             android:orientation="vertical"
             android:gravity="end"
             android:paddingHorizontal="1dp"
-            android:background="@drawable/border_line_green"
             >
             <TextView
                 android:id="@+id/tmpView"
@@ -38,7 +34,6 @@
                 android:text="36 ℃"
                 android:textSize="@dimen/recycler_text_view_size"
                 android:textColor="@color/black"
-                android:background="@drawable/border_line_orange"
                 />
             <TextView
                 android:id="@+id/rehView"
@@ -47,7 +42,6 @@
                 android:text="99 %"
                 android:textSize="@dimen/recycler_text_view_size"
                 android:textColor="@color/black"
-                android:background="@drawable/border_line_orange"
                 />
         </androidx.appcompat.widget.LinearLayoutCompat>
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -57,7 +51,6 @@
             android:orientation="vertical"
             android:gravity="end"
             android:paddingHorizontal="1dp"
-            android:background="@drawable/border_line_green"
             >
             <TextView
                 android:id="@+id/skyView"
@@ -66,7 +59,6 @@
                 android:text="구름 많음"
                 android:textSize="@dimen/recycler_text_view_size"
                 android:textColor="@color/black"
-                android:background="@drawable/border_line_orange"
                 />
             <TextView
                 android:id="@+id/wsdView"
@@ -75,7 +67,6 @@
                 android:text="15.4 m/s"
                 android:textSize="@dimen/recycler_text_view_size"
                 android:textColor="@color/black"
-                android:background="@drawable/border_line_orange"
                 />
         </androidx.appcompat.widget.LinearLayoutCompat>
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -85,7 +76,6 @@
             android:layout_weight="1"
             android:gravity="end"
             android:paddingHorizontal="1dp"
-            android:background="@drawable/border_line_green"
             >
             <TextView
                 android:id="@+id/popView"
@@ -94,7 +84,6 @@
                 android:text="100 %"
                 android:textSize="@dimen/recycler_text_view_size"
                 android:textColor="@color/black"
-                android:background="@drawable/border_line_orange"
                 />
             <TextView
                 android:id="@+id/ptyView"
@@ -103,7 +92,6 @@
                 android:text="소나기"
                 android:textSize="@dimen/recycler_text_view_size"
                 android:textColor="@color/black"
-                android:background="@drawable/border_line_orange"
             />
         </androidx.appcompat.widget.LinearLayoutCompat>
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -113,7 +101,6 @@
             android:orientation="vertical"
             android:gravity="end"
             android:paddingHorizontal="1dp"
-            android:background="@drawable/border_line_green"
             >
             <TextView
                 android:id="@+id/pcpView"
@@ -122,7 +109,6 @@
                 android:text="50 mm 이상"
                 android:textSize="@dimen/recycler_text_view_size"
                 android:textColor="@color/black"
-                android:background="@drawable/border_line_orange"
                 />
             <TextView
                 android:id="@+id/snoView"
@@ -131,7 +117,6 @@
                 android:text="5 cm 이상"
                 android:textSize="@dimen/recycler_text_view_size"
                 android:textColor="@color/black"
-                android:background="@drawable/border_line_orange"
                 />
         </androidx.appcompat.widget.LinearLayoutCompat>
         <TextView
@@ -145,7 +130,6 @@
             android:text="18:00"
             android:textSize="@dimen/recycler_text_view_size"
             android:textColor="@color/black"
-            android:background="@drawable/border_line_green"
             />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.appcompat.widget.LinearLayoutCompat>

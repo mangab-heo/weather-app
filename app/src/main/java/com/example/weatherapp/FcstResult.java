@@ -1,7 +1,5 @@
 package com.example.weatherapp;
 
-import android.content.Intent;
-
 import java.util.List;
 
 public class FcstResult {
@@ -27,7 +25,6 @@ public class FcstResult {
             }
 
             if (item.category.equals(Category.TMN.getValue())) {
-                // check TODAY TOMM DAT DADAT given baseDate and fcstDate
                 int dayDiff = Integer.parseInt(item.fcstDate) - Integer.parseInt(item.baseDate);
                 weatherData.tmn[dayDiff] = Double.parseDouble(item.fcstValue);
             }
