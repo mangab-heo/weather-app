@@ -1,10 +1,17 @@
 package com.example.weatherapp;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class WeatherData {
     private List<WeatherHour> weatherHours = new ArrayList<>();
+
+    String curPty = "Missing";
+    String curTmp = "Missing";
+    String curSky = "Missing";
 
     double[] tmx = new double[] { -1, -1, -1, -1 };
     double[] tmn = new double[] { -1, -1, -1, -1 };
@@ -12,6 +19,27 @@ public class WeatherData {
     List<WeatherHour> getWeatherHours() { return this.weatherHours; }
 
     void addWeatherHour(WeatherHour weatherHour) { weatherHours.add(weatherHour); }
+
+    int findStartIdx() {
+        SimpleDateFormat sbf = new SimpleDateFormat("yyyyMMdd HH00", Locale.KOREA);
+        String[] curDateTime = sbf.format(new Date(System.currentTimeMillis())).split(" ");
+        int curDateInt = Integer.parseInt(curDateTime[0]);
+        int curTimeInt = Integer.parseInt(curDateTime[1]);
+
+        int surviveIdx = 0;
+        for (int i = 0; i < weatherHours.size(); i++) {
+            WeatherHour weatherHour = weatherHours.get(i);
+            int fcstDateInt = Integer.parseInt(weatherHour.fcstDate);
+            int fcstTimeInt = Integer.parseInt(weatherHour.fcstTime.substring(0, 2)
+                    + weatherHour.fcstTime.substring(3));
+
+            if (fcstDateInt >= curDateInt && fcstTimeInt > curTimeInt) {
+                surviveIdx = i;
+                break;
+            }
+        }
+        return surviveIdx;
+    }
 }
 
 class WeatherHour {
@@ -40,7 +68,8 @@ class WeatherHour {
                 case 4: this.pty = "소나기"; break;
             }
         }
-        else if (category.equals(Category.PCP.getValue())) {
+        else if (category.equals(Category.PCP.getValue())
+                || category.equals(Category.RN1.getValue())) {
             this.pcp = fcstValue;
         }
         else if (category.equals(Category.REH.getValue())) {
@@ -57,7 +86,8 @@ class WeatherHour {
                 case 4: this.sky = "흐림"; break;
             }
         }
-        else if (category.equals(Category.TMP.getValue())) {
+        else if (category.equals(Category.TMP.getValue())
+                || category.equals(Category.T1H.getValue()) ) {
             this.tmp = fcstValue + " ℃";
         }
         else if (category.equals(Category.WSD.getValue())) {

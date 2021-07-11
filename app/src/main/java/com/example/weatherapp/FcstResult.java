@@ -1,14 +1,28 @@
 package com.example.weatherapp;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.util.List;
 
 public class FcstResult {
     Response response;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     WeatherData toWeatherData() {
+        if (!response.header.resultCode.equals("00"))
+            return null;
+
         WeatherData weatherData = new WeatherData();
 
         List<Item> listItem = response.body.items.item;
+
+        listItem.sort((o1, o2) -> {
+            String o1DateTime = o1.fcstDate + o1.fcstTime;
+            String o2DateTime = o2.fcstDate + o2.fcstTime;
+            return o1DateTime.compareTo(o2DateTime);
+        });
 
         String fcstTime = listItem.get(0).fcstTime;
         WeatherHour weatherHour = new WeatherHour();
@@ -41,37 +55,37 @@ public class FcstResult {
 
         return weatherData;
     }
-}
 
-class Response {
-    Header header;
-    Body body;
-}
+    static class Response {
+        Header header;
+        Body body;
+    }
 
-class Header {
-    String resultCode;
-    String resultMsg;
-}
+    static class Header {
+        String resultCode;
+        String resultMsg;
+    }
 
-class Body {
-    String dataType;
-    int numOfRows;
-    int pageNo;
-    int totalCount;
-    Items items;
-}
+    static class Body {
+        String dataType;
+        int numOfRows;
+        int pageNo;
+        int totalCount;
+        Items items;
+    }
 
-class Items {
-    List<Item> item;
-}
+    static class Items {
+        List<Item> item;
+    }
 
-class Item {
-    String baseDate;
-    String baseTime;
-    String category;
-    String fcstDate;
-    String fcstTime;
-    String fcstValue;
-    int nx;
-    int ny;
+    static class Item {
+        String baseDate;
+        String baseTime;
+        String category;
+        String fcstDate;
+        String fcstTime;
+        String fcstValue;
+        int nx;
+        int ny;
+    }
 }
