@@ -98,7 +98,8 @@ class WeatherHour {
 
 enum Category {
     POP("POP"), PTY("PTY"), PCP("PCP"), REH("REH"), SNO("SNO"),
-    SKY("SKY"), TMP("TMP"), TMN("TMN"), TMX("TMX"), WSD("WSD");
+    SKY("SKY"), TMP("TMP"), TMN("TMN"), TMX("TMX"), WSD("WSD"),
+    T1H("T1H"), RN1("RN1");
 
     private final String value;
     Category(String str) {

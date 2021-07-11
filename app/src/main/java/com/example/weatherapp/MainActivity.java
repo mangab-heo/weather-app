@@ -60,16 +60,6 @@ public class MainActivity extends RxAppCompatActivity {
             actionBar.hide();
         }
 
-        String[] baseDateTime = findBaseDateTime();
-
-        String baseDate = baseDateTime[0];
-        String baseTime = baseDateTime[1];
-
-        if (baseDate == null || baseTime == null) {
-            Toast.makeText(MainActivity.this, "현재 시각을 구할 수 없습니다.", Toast.LENGTH_LONG).show();
-            return;
-        }
-
         ImageButton imageButton = findViewById(R.id.gps_button);
         imageButton.setOnClickListener(v -> {
 
@@ -137,14 +127,46 @@ public class MainActivity extends RxAppCompatActivity {
             }
         }
 
-        return new String[] { baseDate, baseTime };
+        if (baseTimeFcst.length() < 4) {
+            baseTimeFcst = "0" + baseTimeFcst;
+        }
+
+        // getUltraSrtFcst의 baseDate, baseTime 구하기
+        int quotientSrt = Integer.parseInt(curTime) / 100;
+        int remainSrt = Integer.parseInt(curTime) % 100;
+
+        if (quotientSrt == 0 && remainSrt <= 45) {
+            // 전날 23:30으로 호출
+            String[] yesterDateTime = sdf.format(new Date(System.currentTimeMillis() - 1000*60*60*24*-1))
+                    .split(" ");
+            baseDateSrt = yesterDateTime[0];
+            baseTimeSrt = "2330";
+        }
+        else {
+            if (remainSrt <= 45) {
+                // 이전 시각 30분
+                baseTimeSrt = String.valueOf(Integer.parseInt(curTime) - remainSrt - 70);
+            }
+            else {
+                // 같은 시각 30분
+                baseTimeSrt = String.valueOf(Integer.parseInt(curTime) - remainSrt + 30);
+            }
+        }
+
+        if (baseTimeSrt.length() < 4) {
+            if (baseTimeSrt.length() == 2)
+                baseTimeSrt = "00" + baseTimeSrt;
+            else baseTimeSrt = "0" + baseTimeSrt;
+        }
+
+        return new String[] {baseDateFcst, baseTimeFcst, baseDateSrt, baseTimeSrt};
     }
 
     private WeatherGrid.LatXLngY getGridLocation() {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         WeatherGrid.LatXLngY latXLngY = null;
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(MainActivity.this, "권한이 필요합니다.", Toast.LENGTH_LONG).show();
         }
         else {
@@ -252,20 +274,22 @@ public class MainActivity extends RxAppCompatActivity {
     }
 
     private boolean isLocationPermissionGranted() {
-        SharedPreferences pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
-        boolean isFirstCheck = pref.getBoolean("isFirstPermissionCheck", true);
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                // "앱 사용 중에만 허용", "거부", "거부 및 다시 묻지 않음"
                 Snackbar snackBar = Snackbar.make(findViewById(R.id.layout_main), R.string.suggest_permission_grant, Snackbar.LENGTH_INDEFINITE).setDuration(8000);
                 snackBar.setAction("권한승인", v ->
                         ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE));
                 snackBar.show();
             }
             else {
+                SharedPreferences pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
+                boolean isFirstCheck = pref.getBoolean("isFirstPermissionCheck", true);
                 if (isFirstCheck) {
+                    // "앱 사용 중에만 허용", "거부"
                     pref.edit().putBoolean("isFirstPermissionCheck", false).apply();
-                    ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
                 }
                 else {
                     Snackbar snackBar = Snackbar.make(findViewById(R.id.layout_main), R.string.suggest_permission_grant_in_setting, Snackbar.LENGTH_LONG).setDuration(8000);
