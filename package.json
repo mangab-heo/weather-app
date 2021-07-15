@@ -1,0 +1,27 @@
+{
+  "name": "weatherapp",
+  "version": "1.0.0",
+  "description": "미세먼지 관측소 위경도 구하는 스크립트",
+  "main": "stationLocation.js",
+  "scripts": {
+    "start": "node stationLocation.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mangab0159/weather-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mangab0159/weather-app/issues"
+  },
+  "homepage": "https://github.com/mangab0159/weather-app#readme",
+  "devDependencies": {},
+  "type": "module",
+  "dependencies": {
+    "node-fetch": "^2.6.1",
+    "xmlhttprequest": "^1.8.0",
+    "csv-parser": "^3.0.0"
+  }
+}
