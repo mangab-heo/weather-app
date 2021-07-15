@@ -5,13 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +31,10 @@ import com.trello.rxlifecycle4.components.support.RxAppCompatActivity;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,13 +45,12 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
+import static com.example.weatherapp.RetrofitClient.getArpltnService;
 import static com.example.weatherapp.WeatherGrid.TO_GRID;
 import static com.example.weatherapp.WeatherGrid.convertGRID_GPS;
 
 public class MainActivity extends RxAppCompatActivity {
-    RecyclerView recyclerView;
-    TextView weatherTextView;
-    TextView tmpTextView;
+    List<StationLocation> stationLocations = new ArrayList<>();
 
     static final int REQUEST_CODE = 101;
 
@@ -60,6 +65,30 @@ public class MainActivity extends RxAppCompatActivity {
             actionBar.hide();
         }
 
+        AssetManager assetManager = getResources().getAssets();
+        InputStream inputStream;
+        String stationLine;
+
+        try {
+            inputStream = assetManager.open("stationLocation.txt");
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
+            while ((stationLine = bufferedReader.readLine()) != null) {
+                String[] stationLineArr = stationLine.split(" ");
+
+                String stationName = stationLineArr[0];
+                double latitude = Double.parseDouble(stationLineArr[1]);
+                double longitude = Double.parseDouble(stationLineArr[2]);
+
+                stationLocations.add(new StationLocation(stationName, latitude, longitude));
+            }
+
+            inputStream.close();
+            bufferedReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         ImageButton imageButton = findViewById(R.id.gps_button);
         imageButton.setOnClickListener(v -> {
 
@@ -72,6 +101,21 @@ public class MainActivity extends RxAppCompatActivity {
                     String x = Integer.valueOf((int)gridLocation.x).toString();
                     String y = Integer.valueOf((int)gridLocation.y).toString();
 
+                    double latitude = gridLocation.lat;
+                    double longitude = gridLocation.lng;
+
+                    String stationName = "종로구";
+                    double minDist = Double.MAX_VALUE;
+
+                    for (StationLocation stationLocation : stationLocations) {
+                        double dist = stationLocation.getDistance(latitude, longitude);
+                        if (dist < minDist) {
+                            stationName = stationLocation.name;
+                            minDist = dist;
+                        }
+                    }
+
+                    getDnstyAndUpdateView(stationName);
                     getFcstAndUpdateView(x, y);
                 }
             }
@@ -84,6 +128,21 @@ public class MainActivity extends RxAppCompatActivity {
                 String x = Integer.valueOf((int) gridLocation.x).toString();
                 String y = Integer.valueOf((int) gridLocation.y).toString();
 
+                double latitude = gridLocation.lat;
+                double longitude = gridLocation.lng;
+
+                String stationName = "종로구";
+                double minDist = Double.MAX_VALUE;
+
+                for (StationLocation stationLocation : stationLocations) {
+                    double dist = stationLocation.getDistance(latitude, longitude);
+                    if (dist < minDist) {
+                        stationName = stationLocation.name;
+                        minDist = dist;
+                    }
+                }
+
+                getDnstyAndUpdateView(stationName);
                 getFcstAndUpdateView(x, y);
             }
         }
@@ -110,7 +169,7 @@ public class MainActivity extends RxAppCompatActivity {
         if (quotient == 0 && remain <= 210) {
             // 00시 00분 ~ 02시 10분
             // 전날 23시로 호출
-            String[] yesterDateTime = sdf.format(new Date(System.currentTimeMillis() - 1000*60*60*24*-1))
+            String[] yesterDateTime = sdf.format(new Date(System.currentTimeMillis() - 1000*60*60*24))
                     .split(" ");
             baseDateFcst = yesterDateTime[0];
             baseTimeFcst = "2300";
@@ -137,7 +196,7 @@ public class MainActivity extends RxAppCompatActivity {
 
         if (quotientSrt == 0 && remainSrt <= 45) {
             // 전날 23:30으로 호출
-            String[] yesterDateTime = sdf.format(new Date(System.currentTimeMillis() - 1000*60*60*24*-1))
+            String[] yesterDateTime = sdf.format(new Date(System.currentTimeMillis() - 1000*60*60*24))
                     .split(" ");
             baseDateSrt = yesterDateTime[0];
             baseTimeSrt = "2330";
@@ -245,7 +304,7 @@ public class MainActivity extends RxAppCompatActivity {
                 .compose(bindToLifecycle())
                 .subscribe(weatherData -> {
                     if (weatherData != null) {
-                        weatherTextView = findViewById(R.id.weather_text);
+                        TextView weatherTextView = findViewById(R.id.weather_text);
                         String weatherText;
                         if (weatherData.curPty.equals("없음")) {
                             weatherText = weatherData.curSky;
@@ -255,13 +314,13 @@ public class MainActivity extends RxAppCompatActivity {
                         }
                         weatherTextView.setText(weatherText);
 
-                        tmpTextView = findViewById(R.id.temperature_text);
+                        TextView tmpTextView = findViewById(R.id.temperature_text);
                         tmpTextView.setText(weatherData.curTmp);
 
                         List<WeatherHour> weatherHours = weatherData.getWeatherHours();
                         RecyclerAdapter recyclerAdapter = new RecyclerAdapter(weatherHours.subList(weatherData.findStartIdx(), weatherHours.size()));
 
-                        recyclerView = findViewById(R.id.recyclerView);
+                        RecyclerView recyclerView = findViewById(R.id.recyclerView);
                         recyclerView.setAdapter(recyclerAdapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
@@ -330,4 +389,98 @@ public class MainActivity extends RxAppCompatActivity {
             }
         }
     }
+
+    private void getDnstyAndUpdateView(String stationName) {
+        Observable<ArpltnResult> getDnsty = getArpltnService().getDnsty(
+                ArpltnClientConstants.SERVICE_KEY, ArpltnClientConstants.RETURN_TYPE,
+                ArpltnClientConstants.NUM_OF_ROWS, ArpltnClientConstants.PAGE_NO,
+                ArpltnClientConstants.DATA_TERM, ArpltnClientConstants.VER,
+                stationName
+        );
+
+        getDnsty.map(arpltnResult -> {
+            PmInfo pmInfo = new PmInfo();
+
+            ArpltnResult.Item item = arpltnResult.response.body.items.get(0);
+            if (!item.pm10Value.equals("-")) {
+                pmInfo.pmStrs[0] = item.pm10Value;
+                pmInfo.pmGrade[0] = Integer.parseInt(item.pm10Grade1h);
+            }
+            else if (!item.pm10Value24.equals("-")) {
+                pmInfo.pmStrs[0] = item.pm10Value24;
+                pmInfo.pmGrade[0] = Integer.parseInt(item.pm10Grade);
+            }
+            else {
+                pmInfo.pmStrs[0] = item.pm10Flag;
+                pmInfo.pmFlags[0] = true;
+            }
+
+            if (!item.pm25Value.equals("-")) {
+                pmInfo.pmStrs[1] = item.pm25Value;
+                pmInfo.pmGrade[1] = Integer.parseInt(item.pm25Grade1h);
+            } else if (!item.pm25Value24.equals("-")) {
+                pmInfo.pmStrs[1] = item.pm25Value24;
+                pmInfo.pmGrade[1] = Integer.parseInt(item.pm25Grade);
+            }
+            else {
+                pmInfo.pmStrs[1] = item.pm25Flag;
+                pmInfo.pmFlags[1] = true;
+            }
+
+            return pmInfo;
+        })
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(bindToLifecycle())
+                .subscribe(pmInfo -> {
+                    if (pmInfo.pmStrs[0] != null) {
+                        TextView pm10TextView = findViewById(R.id.pm10_text_view);
+                        TextView pm10UnitView = findViewById(R.id.pm10_unit_view);
+
+                        String pm10Text = pmInfo.pmStrs[0];
+                        if (pmInfo.pmFlags[0]) {
+                            pm10UnitView.setVisibility(View.INVISIBLE);
+                        }
+                        else {
+                            int pmColor = R.color.purple_700;
+                            switch (pmInfo.pmGrade[0]) {
+                                case 1: pmColor = Color.BLUE; break;
+                                case 2: pmColor = Color.GREEN; break;
+                                case 3: pmColor = Color.parseColor("#ff7300"); break;
+                                case 4: pmColor = Color.RED; break;
+                            }
+                            pm10TextView.setTextColor(pmColor);
+                            pm10UnitView.setTextColor(pmColor);
+                        }
+                        pm10TextView.setText(pm10Text);
+                    }
+                    if (pmInfo.pmStrs[1] != null) {
+                        TextView pm25TextView = findViewById(R.id.pm25_text_view);
+                        TextView pm25UnitView = findViewById(R.id.pm25_unit_view);
+
+                        String pm25Text = pmInfo.pmStrs[1];
+                        if (pmInfo.pmFlags[1]) {
+                            pm25UnitView.setVisibility(View.INVISIBLE);
+                        }
+                        else {
+                            int pmColor = R.color.purple_700;
+                            switch (pmInfo.pmGrade[1]) {
+                                case 1: pmColor = Color.BLUE; break;
+                                case 2: pmColor = Color.GREEN; break;
+                                case 3: pmColor = Color.parseColor("#ff7300"); break;
+                                case 4: pmColor = Color.RED; break;
+                            }
+                            pm25TextView.setTextColor(pmColor);
+                            pm25UnitView.setTextColor(pmColor);
+                        }
+                        pm25TextView.setText(pm25Text);
+                    }
+                }, throwable -> Toast.makeText(MainActivity.this, throwable.toString(), Toast.LENGTH_LONG).show());
+    }
+}
+
+class PmInfo {
+    String[] pmStrs = new String[2];
+    boolean[] pmFlags = new boolean[2];
+    int[] pmGrade = new int[2];
 }
