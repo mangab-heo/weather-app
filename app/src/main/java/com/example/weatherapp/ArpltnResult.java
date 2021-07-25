@@ -1,9 +1,23 @@
 package com.example.weatherapp;
 
+import android.util.Log;
+
 import java.util.List;
 
-public class ArpltnResult {
+public class ArpltnResult implements APIResult<ViewData> {
     Response response;
+
+    @Override
+    public PmData toAppData() throws Exception {
+        if (!response.header.resultCode.equals("00")) throw new Exception();
+        ArpltnResult.Item item = this.response.body.items.get(0);
+
+        PmData pmData = new PmData();
+        pmData.setFields(item, 0);
+        pmData.setFields(item, 1);
+
+        return pmData;
+    }
 
     static class Response {
         Header header;

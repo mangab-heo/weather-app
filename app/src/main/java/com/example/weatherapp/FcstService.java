@@ -12,8 +12,8 @@ public interface FcstService {
                                          @Query("dataType") String dataType,
                                          @Query("base_date") String base_date,
                                          @Query("base_time") String base_time,
-                                         @Query("nx") String nx,
-                                         @Query("ny") String ny);
+                                         @Query("nx") int x,
+                                         @Query("ny") int y);
     @GET("getUltraSrtFcst")
     Observable<FcstResult> getUltraSrtFcst(@Query("serviceKey") String serviceKey,
                                         @Query("pageNo") String pageNo,
@@ -21,8 +21,8 @@ public interface FcstService {
                                         @Query("dataType") String dataType,
                                         @Query("base_date") String base_date,
                                         @Query("base_time") String base_time,
-                                        @Query("nx") String nx,
-                                        @Query("ny") String ny);
+                                        @Query("nx") int x,
+                                        @Query("ny") int y);
 }
 
 interface ArpltnService {

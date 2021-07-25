@@ -36,23 +36,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyIt
 
         if (curItem.pty.equals("없음")) {
             switch (curItem.sky) {
-                case "맑음":
-                    holder.weatherImageView.setImageResource(R.drawable.sunny);
-                    break;
-                case "구름 많음":
-                    holder.weatherImageView.setImageResource(R.drawable.cloudy);
-                    break;
-                case "흐림":
-                    holder.weatherImageView.setImageResource(R.drawable.shadowy);
-                    break;
+                case "맑음": holder.weatherImageView.setImageResource(R.drawable.sunny);break;
+                case "구름 많음": holder.weatherImageView.setImageResource(R.drawable.cloudy);break;
+                case "흐림": holder.weatherImageView.setImageResource(R.drawable.shadowy);break;
             }
         }
-        else if (curItem.pty.equals("눈")) {
-            holder.weatherImageView.setImageResource(R.drawable.snowy);
-        }
-        else {
-            holder.weatherImageView.setImageResource(R.drawable.rainy);
-        }
+        else if (curItem.pty.equals("눈")) holder.weatherImageView.setImageResource(R.drawable.snowy);
+        else holder.weatherImageView.setImageResource(R.drawable.rainy);
 
         holder.tmpView.setText(curItem.tmp);
         holder.skyView.setText(curItem.sky);

@@ -6,13 +6,13 @@ import androidx.annotation.RequiresApi;
 
 import java.util.List;
 
-public class FcstResult {
+public class FcstResult implements APIResult<ViewData> {
     Response response;
 
+    @Override
     @RequiresApi(api = Build.VERSION_CODES.N)
-    WeatherData toWeatherData() {
-        if (!response.header.resultCode.equals("00"))
-            return null;
+    public WeatherData toAppData() throws Exception {
+        if (!response.header.resultCode.equals("00")) throw new Exception();
 
         WeatherData weatherData = new WeatherData();
 
@@ -28,6 +28,7 @@ public class FcstResult {
         WeatherHour weatherHour = new WeatherHour();
         weatherHour.fcstDate = listItem.get(0).fcstDate;
         weatherHour.fcstTime = listItem.get(0).fcstTime.substring(0, 2) + ":" + listItem.get(0).fcstTime.substring(2);
+
         for (Item item : listItem) {
             if (!fcstTime.equals(item.fcstTime)) {
                 weatherData.addWeatherHour(weatherHour);

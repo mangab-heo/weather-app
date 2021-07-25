@@ -1,12 +1,17 @@
 package com.example.weatherapp;
 
+import android.widget.TextView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class WeatherData {
+public class WeatherData implements ViewData {
     private List<WeatherHour> weatherHours = new ArrayList<>();
 
     String curPty = "Missing";
@@ -39,6 +44,73 @@ public class WeatherData {
             }
         }
         return surviveIdx;
+    }
+
+    @Override
+    public void updateView(MainActivity mainActivity) {
+        TextView weatherTextView = mainActivity.findViewById(R.id.weather_text);
+        weatherTextView.setText(this.curPty.equals("없음") ? this.curSky : this.curPty);
+
+        TextView tmpTextView = mainActivity.findViewById(R.id.temperature_text);
+        tmpTextView.setText(this.curTmp);
+
+        List<WeatherHour> weatherHours = this.getWeatherHours();
+        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(weatherHours.subList(this.findStartIdx(), weatherHours.size()));
+
+        RecyclerView recyclerView = mainActivity.findViewById(R.id.recyclerView);
+        recyclerView.setAdapter(recyclerAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
+
+        recyclerAdapter.notifyDataSetChanged();
+    }
+
+    static WeatherData combineWeatherData(List<WeatherData> list) {
+        if (list.size() == 1) {
+            WeatherData weatherDataVillage = list.get(0);
+            List<WeatherHour> villageHours = weatherDataVillage.getWeatherHours();
+            int villageIdx = weatherDataVillage.findStartIdx();
+
+            weatherDataVillage.curPty = villageHours.get(villageIdx).pty;
+            weatherDataVillage.curTmp = villageHours.get(villageIdx).tmp;
+            weatherDataVillage.curSky = villageHours.get(villageIdx).sky;
+
+            return weatherDataVillage;
+        }
+        else {
+            WeatherData weatherDataVillage;
+            WeatherData weatherDataSrt;
+            if (list.get(0).getWeatherHours().size() >= list.get(1).getWeatherHours().size()) {
+                weatherDataVillage = list.get(0);
+                weatherDataSrt = list.get(1);
+            }
+            else {
+                weatherDataVillage = list.get(1);
+                weatherDataSrt = list.get(0);
+            }
+
+            List<WeatherHour> villageHours = weatherDataVillage.getWeatherHours();
+            int villageIdx = weatherDataVillage.findStartIdx();
+
+            List<WeatherHour> srtHours = weatherDataSrt.getWeatherHours();
+            int srtIdx = weatherDataSrt.findStartIdx();
+
+            weatherDataVillage.curPty = srtHours.get(0).pty;
+            weatherDataVillage.curTmp = srtHours.get(0).tmp;
+            weatherDataVillage.curSky = srtHours.get(0).sky;
+
+            for (; srtIdx < srtHours.size(); srtIdx++, villageIdx++) {
+                WeatherHour srtHour = srtHours.get(srtIdx);
+                WeatherHour villageHour = villageHours.get(villageIdx);
+                villageHour.tmp = srtHour.tmp;
+                villageHour.pcp = srtHour.pcp;
+                villageHour.sky = srtHour.sky;
+                villageHour.reh = srtHour.reh;
+                villageHour.pty = srtHour.pty;
+                villageHour.wsd = srtHour.wsd;
+            }
+
+            return weatherDataVillage;
+        }
     }
 }
 
