@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="350dp"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="center_vertical"
+    android:background="@color/white"
     android:paddingHorizontal="5dp"
     >
     <ImageView
@@ -14,12 +15,12 @@
         android:padding="2dp"
         android:scaleType="fitCenter"
         android:contentDescription="weather_image" />
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -43,8 +44,8 @@
                 android:textSize="@dimen/recycler_text_view_size"
                 android:textColor="@color/black"
                 />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-        <androidx.appcompat.widget.LinearLayoutCompat
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -68,8 +69,8 @@
                 android:textSize="@dimen/recycler_text_view_size"
                 android:textColor="@color/black"
                 />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-        <androidx.appcompat.widget.LinearLayoutCompat
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -93,8 +94,8 @@
                 android:textSize="@dimen/recycler_text_view_size"
                 android:textColor="@color/black"
             />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-        <androidx.appcompat.widget.LinearLayoutCompat
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -118,7 +119,7 @@
                 android:textSize="@dimen/recycler_text_view_size"
                 android:textColor="@color/black"
                 />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </LinearLayout>
         <TextView
             android:id="@+id/fcstTimeView"
             android:layout_width="wrap_content"
@@ -131,5 +132,5 @@
             android:textSize="@dimen/recycler_text_view_size"
             android:textColor="@color/black"
             />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-</androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
+</LinearLayout>

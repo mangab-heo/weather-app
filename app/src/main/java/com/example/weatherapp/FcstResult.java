@@ -41,11 +41,11 @@ public class FcstResult implements APIResult<ViewData> {
 
             if (item.category.equals(Category.TMN.getValue())) {
                 int dayDiff = Integer.parseInt(item.fcstDate) - Integer.parseInt(item.baseDate);
-                weatherData.tmn[dayDiff] = Double.parseDouble(item.fcstValue);
+//                weatherData.tmn[dayDiff] = Double.parseDouble(item.fcstValue);
             }
             else if (item.category.equals(Category.TMX.getValue())) {
                 int dayDiff = Integer.parseInt(item.fcstDate) - Integer.parseInt(item.baseDate);
-                weatherData.tmx[dayDiff] = Double.parseDouble(item.fcstValue);
+//                weatherData.tmx[dayDiff] = Double.parseDouble(item.fcstValue);
             }
             else {
                 weatherHour.setFcstValue(item.category, item.fcstValue);
@@ -53,7 +53,6 @@ public class FcstResult implements APIResult<ViewData> {
         }
 
         weatherData.addWeatherHour(weatherHour);
-
         return weatherData;
     }
 

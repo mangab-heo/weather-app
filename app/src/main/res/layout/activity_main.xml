@@ -7,7 +7,6 @@
     tools:context=".MainActivity"
     android:id="@+id/layout_main"
     >
-
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/cur_weather_layout"
         android:layout_width="wrap_content"
@@ -131,11 +130,11 @@
             />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
             android:layout_gravity="center_horizontal"
+
             />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">WeatherApp</string>
-    <string name="weather_text">맑음</string>
-    <string name="temperature_text">26℃</string>
+    <string name="weather_text">날씨 상태</string>
+    <string name="temperature_text">현재 온도</string>
     <string name="suggest_permission_grant">위치를 가져오기 위해서는 위치 권한이 필요합니다.</string>
     <string name="suggest_permission_grant_in_setting">위치 권한이 필요합니다. 확인을 누르면 설정 화면으로 이동합니다.</string>
-    <string name="pm10_text">30</string>
-    <string name="pm25_text">35</string>
+    <string name="pm10_text">미세 먼지</string>
+    <string name="pm25_text">초미세 먼지</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>

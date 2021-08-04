@@ -5,6 +5,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,7 +14,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class WeatherData implements ViewData {
-    private List<WeatherHour> weatherHours = new ArrayList<>();
+    private final List<WeatherHour> weatherHours = new ArrayList<>();
 
     String curPty = "Missing";
     String curTmp = "Missing";
@@ -111,6 +113,45 @@ public class WeatherData implements ViewData {
 
             return weatherDataVillage;
         }
+    }
+
+    @NotNull
+    public static String[] getBaseDateTime(int fcstConstantsIdx) {
+        final int[][] fcstConstants = {{300, 210, 2300, 100, 200}, {100, 45, 2330, 70, 30}};
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd HHmm", Locale.KOREA);
+        String curDateTimeStr = sdf.format(new Date(System.currentTimeMillis()));
+        String[] curDateTime = curDateTimeStr.split(" ");
+
+        String[] baseDateTime = new String[2];
+        baseDateTime[0] = curDateTime[0];
+
+        int quotient = Integer.parseInt(curDateTime[1]) / fcstConstants[fcstConstantsIdx][0];
+        int remain = Integer.parseInt(curDateTime[1]) % fcstConstants[fcstConstantsIdx][0];
+
+        if (quotient == 0 && remain <= fcstConstants[fcstConstantsIdx][1]) {
+            String[] yesterDateTime = sdf.format(new Date(System.currentTimeMillis() - 1000 * 60 * 60 * 24))
+                    .split(" ");
+            baseDateTime[0] = yesterDateTime[0];
+            baseDateTime[1] = String.valueOf(fcstConstants[fcstConstantsIdx][2]);
+        } else {
+            if (remain <= fcstConstants[fcstConstantsIdx][1]) {
+                baseDateTime[1] = String.valueOf(Integer.parseInt(curDateTime[1]) - remain - fcstConstants[fcstConstantsIdx][3]);
+            } else {
+                baseDateTime[1] = String.valueOf(Integer.parseInt(curDateTime[1]) - remain + fcstConstants[fcstConstantsIdx][4]);
+            }
+        }
+
+        if (baseDateTime[1].length() < 4) {
+            int zeroCnts = 4 - baseDateTime[1].length();
+            StringBuilder zeros = new StringBuilder();
+            while (zeroCnts > 0) {
+                zeroCnts -= 1;
+                zeros.append("0");
+            }
+            baseDateTime[1] = zeros + baseDateTime[1];
+        }
+        return baseDateTime;
     }
 }
 
