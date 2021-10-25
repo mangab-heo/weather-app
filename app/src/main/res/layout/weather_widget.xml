@@ -1,0 +1,85 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/appWidgetBackgroundColor"
+    android:padding="@dimen/widget_margin"
+    android:orientation="vertical"
+    android:theme="@style/ThemeOverlay.WeatherApp.AppWidgetContainer"
+    android:gravity="center">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/widget_head_background"
+        android:gravity="start">
+        <ImageView
+            android:id="@+id/weatherImageWidget"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="start"
+            android:src="@drawable/sunny"
+            android:paddingVertical="6dp"
+            android:layout_marginHorizontal="10dp"
+            android:scaleType="fitCenter"
+            android:contentDescription="weather_image" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="end"
+            android:layout_marginHorizontal="10dp">
+            <TextView
+                android:id="@+id/tmpViewWidget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="현재 온도"
+                android:textSize="@dimen/recycler_text_view_size"
+                android:textColor="@color/black" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="end"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="10dp">
+            <TextView
+                android:id="@+id/wsdViewWidget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="풍속"
+                android:textSize="@dimen/recycler_text_view_size"
+                android:textColor="@color/black" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/fcstTimeViewWidget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="현재 시각"
+            android:textSize="@dimen/recycler_text_view_size"
+            android:textColor="@color/black" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+        <ImageView
+            android:id="@+id/refresh_widget"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icons8_refresh_30"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="10dp" />
+    </LinearLayout>
+    <ListView
+        android:id="@+id/widget_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        android:background="@drawable/widget_body_background"
+        />
+</LinearLayout>

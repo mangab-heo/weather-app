@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="dimen" name="text_view_size">25dp</item>
+    <item type="dimen" name="recycler_text_view_size">15dp</item>
+</resources>
