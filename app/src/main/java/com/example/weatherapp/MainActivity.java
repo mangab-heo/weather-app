@@ -1,14 +1,14 @@
 package com.example.weatherapp;
 
+import static com.example.weatherapp.RetrofitClient.getArpltnService;
+import static com.example.weatherapp.WeatherData.combineWeatherData;
+
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 
 import com.trello.rxlifecycle4.components.support.RxAppCompatActivity;
@@ -22,11 +22,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-import static com.example.weatherapp.RetrofitClient.getArpltnService;
-import static com.example.weatherapp.WeatherData.combineWeatherData;
-
 public class MainActivity extends RxAppCompatActivity {
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,14 +35,12 @@ public class MainActivity extends RxAppCompatActivity {
         drawMainView();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onRestart() {
         super.onRestart();
         drawMainView();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void setImageButtonListener() {
         ImageButton imageButton = findViewById(R.id.gps_button);
         imageButton.setOnClickListener(v -> {
@@ -55,7 +49,6 @@ public class MainActivity extends RxAppCompatActivity {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void drawMainView() {
         if (LocationUtil.isLocationPermissionGranted(MainActivity.this)) {
             try {
@@ -69,7 +62,6 @@ public class MainActivity extends RxAppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void callApiAndUpdateView(WeatherGrid.LatXLngY gridLocation, String stationName) {
         List<Observable<?>> requests = getObservables(gridLocation, stationName);
 
@@ -139,9 +131,8 @@ public class MainActivity extends RxAppCompatActivity {
         return requests;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == LocationUtil.REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
