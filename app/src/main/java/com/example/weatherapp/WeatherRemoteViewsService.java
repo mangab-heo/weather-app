@@ -16,7 +16,7 @@ public class WeatherRemoteViewsService extends RemoteViewsService {
 
 class WeatherRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     public Context context;
-    public List<WeatherHour> itemList;
+    public List<WeatherData.WeatherHour> itemList;
 
     WeatherRemoteViewsFactory(Context context) { this.context = context; }
 
@@ -37,7 +37,7 @@ class WeatherRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory
     @Override
     public RemoteViews getViewAt(int position) {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.recycler_item);
-        WeatherHour curItem = itemList.get(position);
+        WeatherData.WeatherHour curItem = itemList.get(position);
 
         if ("없음".equals(curItem.pty)) {
             switch (curItem.sky) {

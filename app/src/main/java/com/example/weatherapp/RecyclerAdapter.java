@@ -15,9 +15,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyItemViewHolder> {
-    private List<WeatherHour> itemList;
+    private List<WeatherData.WeatherHour> itemList;
 
-    RecyclerAdapter(List<WeatherHour> weatherHours) {
+    RecyclerAdapter(List<WeatherData.WeatherHour> weatherHours) {
         this.itemList = weatherHours;
     }
 
@@ -32,7 +32,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyIt
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull RecyclerAdapter.RecyItemViewHolder holder, int position) {
-        WeatherHour curItem = itemList.get(position);
+        WeatherData.WeatherHour curItem = itemList.get(position);
 
         if (curItem.pty.equals("없음")) {
             switch (curItem.sky) {

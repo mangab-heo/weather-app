@@ -4,7 +4,7 @@ import android.graphics.Color;
 import android.view.View;
 import android.widget.TextView;
 
-public class PmData implements ViewData {
+public class PmData {
     String[] pmStrs = new String[2];
     boolean[] isUnitHidden = new boolean[2];
     int[] pmGrade = new int[2];
@@ -28,7 +28,6 @@ public class PmData implements ViewData {
         }
     }
 
-    @Override
     public void updateView(MainActivity mainActivity) {
         updatePMView(mainActivity, R.id.pm10_text_view, R.id.pm10_unit_view, 0);
         updatePMView(mainActivity, R.id.pm25_text_view, R.id.pm25_unit_view, 1);

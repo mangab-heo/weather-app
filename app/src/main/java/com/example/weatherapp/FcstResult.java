@@ -3,7 +3,7 @@ package com.example.weatherapp;
 import java.util.Collections;
 import java.util.List;
 
-public class FcstResult implements APIResult<ViewData> {
+public class FcstResult implements APIResult<WeatherData> {
     Response response;
 
     @Override
@@ -17,7 +17,7 @@ public class FcstResult implements APIResult<ViewData> {
         Collections.sort(listItem);
 
         String fcstTime = listItem.get(0).fcstTime;
-        WeatherHour weatherHour = new WeatherHour();
+        WeatherData.WeatherHour weatherHour = new WeatherData.WeatherHour();
         weatherHour.fcstDate = listItem.get(0).fcstDate;
         weatherHour.fcstTime = listItem.get(0).fcstTime.substring(0, 2) + ":" + listItem.get(0).fcstTime.substring(2);
 
@@ -26,7 +26,7 @@ public class FcstResult implements APIResult<ViewData> {
                 weatherData.addWeatherHour(weatherHour);
                 fcstTime = item.fcstTime;
 
-                weatherHour = new WeatherHour();
+                weatherHour = new WeatherData.WeatherHour();
                 weatherHour.fcstDate = item.fcstDate;
                 weatherHour.fcstTime = item.fcstTime.substring(0, 2) + ":" + item.fcstTime.substring(2);
             }
