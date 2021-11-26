@@ -11,9 +11,9 @@ import java.util.Locale;
 public class WeatherData {
     private final List<WeatherHour> weatherHours = new ArrayList<>();
 
-    String curPty = "Missing";
-    String curTmp = "Missing";
-    String curSky = "Missing";
+    public String curPty = "Missing";
+    public String curTmp = "Missing";
+    public String curSky = "Missing";
 
     double[] tmx = new double[] { -1, -1, -1, -1 };
     double[] tmn = new double[] { -1, -1, -1, -1 };
@@ -132,16 +132,16 @@ public class WeatherData {
     }
 
     public static class WeatherHour {
-        String fcstDate = "Missing";
-        String fcstTime = "Missing";
-        String pop = "Missing";
-        String pty = "Missing"; // 없음(0), 비(1), 비/눈(2), 눈(3), 소나기(4)
-        String pcp = "Missing";
-        String reh = "Missing";
-        String sno = "Missing";
-        String sky = "Missing"; // 맑음(1), 구름 많음(3), 흐림(4)
-        String tmp = "Missing";
-        String wsd = "Missing";
+        public String fcstDate = "Missing";
+        public String fcstTime = "Missing";
+        public String pop = "Missing";
+        public String pty = "Missing"; // 없음(0), 비(1), 비/눈(2), 눈(3), 소나기(4)
+        public String pcp = "Missing";
+        public String reh = "Missing";
+        public String sno = "Missing";
+        public String sky = "Missing"; // 맑음(1), 구름 많음(3), 흐림(4)
+        public String tmp = "Missing";
+        public String wsd = "Missing";
 
         public void setFcstValue(String category, String fcstValue) {
             if (category.equals(Category.POP.getValue())) {

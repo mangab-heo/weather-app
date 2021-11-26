@@ -13,19 +13,11 @@ class MainViewModel : ViewModel() {
     val weatherData: LiveData<WeatherData> by lazy { _weatherData }
     private val _weatherData: MutableLiveData<WeatherData> = MutableLiveData()
 
-    private val pmData: MutableLiveData<PmData> = MutableLiveData()
+    val pmData: LiveData<PmData> by lazy { _pmData }
+    private val _pmData: MutableLiveData<PmData> = MutableLiveData()
 
     val weatherText: LiveData<String> = Transformations.map(_weatherData) {
         if (it.curPty == "없음") it.curSky else it.curPty
-    }
-    val temperatureText: LiveData<String> = Transformations.map(_weatherData) {
-        it.curTmp
-    }
-    val pm10Text: LiveData<String> = Transformations.map(pmData) {
-        it.pmStrs[0]
-    }
-    val pm25Text: LiveData<String> = Transformations.map(pmData) {
-        it.pmStrs[1]
     }
 
     fun refreshWeatherData(gridLocation: WeatherGrid.LatXLngY, stationName: String) {
@@ -48,7 +40,7 @@ class MainViewModel : ViewModel() {
                             _weatherData.value = viewData
                         }
                         else if (viewData is PmData) {
-                            pmData.value = viewData
+                            _pmData.value = viewData
                         }
                 }
         //{ throwable: Throwable? -> Toast.makeText(this@MainActivity, "날씨 정보를 불러오지 못 했습니다.", Toast.LENGTH_LONG).show() }

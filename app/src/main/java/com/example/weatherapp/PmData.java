@@ -5,9 +5,9 @@ import android.view.View;
 import android.widget.TextView;
 
 public class PmData {
-    String[] pmStrs = new String[2];
-    boolean[] isUnitHidden = new boolean[2];
-    int[] pmGrade = new int[2];
+    public String[] pmStrs = new String[2];
+    public boolean[] isUnitHidden = new boolean[2];
+    public int[] pmGrade = new int[2];
 
     void setFields(ArpltnResult.Item item, int pmIdx) {
         String[] pmValues;

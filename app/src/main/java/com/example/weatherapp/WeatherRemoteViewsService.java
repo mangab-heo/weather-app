@@ -36,7 +36,7 @@ class WeatherRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory
 
     @Override
     public RemoteViews getViewAt(int position) {
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.recycler_item);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_list_item);
         WeatherData.WeatherHour curItem = itemList.get(position);
 
         if ("없음".equals(curItem.pty)) {

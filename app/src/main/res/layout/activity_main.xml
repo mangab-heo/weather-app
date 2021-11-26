@@ -41,7 +41,7 @@
                 android:id="@+id/temperature_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{mainViewModel.temperatureText}"
+                android:text="@{mainViewModel.weatherData.curTmp}"
                 android:textSize="@dimen/text_view_size"
                 android:textColor="@color/black"
                 android:paddingVertical="3dp" />
@@ -56,7 +56,7 @@
                     android:id="@+id/pm10_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{mainViewModel.pm10Text}"
+                    android:text="@{mainViewModel.pmData.pmStrs[0]}"
                     android:textSize="20dp"
                     android:textColor="@color/purple_700" />
 
@@ -90,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/purple_700"
-                    android:text="@{mainViewModel.pm25Text}"
+                    android:text="@{mainViewModel.pmData.pmStrs[1]}"
                     android:textSize="20dp" />
 
                 <TextView
