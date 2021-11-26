@@ -25,7 +25,7 @@ import io.reactivex.rxjava3.core.Observable;
 public class WeatherWidget extends AppWidgetProvider {
     static String ACTION_REFRESH_WIDGET = "refresh_widget";
 
-    static List<WeatherHour> weatherHours;
+    static List<WeatherData.WeatherHour> weatherHours;
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
         new Thread(() -> {

@@ -1,10 +1,8 @@
 package com.example.weatherapp;
 
-import android.util.Log;
-
 import java.util.List;
 
-public class ArpltnResult implements APIResult<ViewData> {
+public class ArpltnResult implements APIResult<PmData> {
     Response response;
 
     @Override

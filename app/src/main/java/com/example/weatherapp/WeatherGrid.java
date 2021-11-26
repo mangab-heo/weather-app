@@ -80,7 +80,7 @@ public class WeatherGrid {
         return rs;
     }
 
-    static class LatXLngY
+    public static class LatXLngY
     {
         public double lat;
         public double lng;

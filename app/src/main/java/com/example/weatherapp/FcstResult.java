@@ -1,16 +1,12 @@
 package com.example.weatherapp;
 
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-
+import java.util.Collections;
 import java.util.List;
 
-public class FcstResult implements APIResult<ViewData> {
+public class FcstResult implements APIResult<WeatherData> {
     Response response;
 
     @Override
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public WeatherData toAppData() throws Exception {
         if (!response.header.resultCode.equals("00")) throw new Exception();
 
@@ -18,14 +14,10 @@ public class FcstResult implements APIResult<ViewData> {
 
         List<Item> listItem = response.body.items.item;
 
-        listItem.sort((o1, o2) -> {
-            String o1DateTime = o1.fcstDate + o1.fcstTime;
-            String o2DateTime = o2.fcstDate + o2.fcstTime;
-            return o1DateTime.compareTo(o2DateTime);
-        });
+        Collections.sort(listItem);
 
         String fcstTime = listItem.get(0).fcstTime;
-        WeatherHour weatherHour = new WeatherHour();
+        WeatherData.WeatherHour weatherHour = new WeatherData.WeatherHour();
         weatherHour.fcstDate = listItem.get(0).fcstDate;
         weatherHour.fcstTime = listItem.get(0).fcstTime.substring(0, 2) + ":" + listItem.get(0).fcstTime.substring(2);
 
@@ -34,7 +26,7 @@ public class FcstResult implements APIResult<ViewData> {
                 weatherData.addWeatherHour(weatherHour);
                 fcstTime = item.fcstTime;
 
-                weatherHour = new WeatherHour();
+                weatherHour = new WeatherData.WeatherHour();
                 weatherHour.fcstDate = item.fcstDate;
                 weatherHour.fcstTime = item.fcstTime.substring(0, 2) + ":" + item.fcstTime.substring(2);
             }
@@ -78,7 +70,7 @@ public class FcstResult implements APIResult<ViewData> {
         List<Item> item;
     }
 
-    static class Item {
+    static class Item implements Comparable<Item> {
         String baseDate;
         String baseTime;
         String category;
@@ -87,5 +79,12 @@ public class FcstResult implements APIResult<ViewData> {
         String fcstValue;
         int nx;
         int ny;
+
+        @Override
+        public int compareTo(Item o) {
+            String o1DateTime = fcstDate + fcstTime;
+            String o2DateTime = o.fcstDate + o.fcstTime;
+            return o1DateTime.compareTo(o2DateTime);
+        }
     }
 }
