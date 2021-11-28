@@ -1,6 +1,6 @@
 package com.example.weatherapp.data.source.remote
 
-import com.example.weatherapp.WeatherGrid
+import com.example.weatherapp.util.WeatherGrid
 import com.example.weatherapp.data.PmData
 import com.example.weatherapp.data.WeatherData
 import com.example.weatherapp.data.source.DataSource

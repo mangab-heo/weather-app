@@ -1,10 +1,11 @@
-package com.example.weatherapp;
+package com.example.weatherapp.widget;
 
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.example.weatherapp.R;
 import com.example.weatherapp.data.WeatherData;
 
 import java.util.List;

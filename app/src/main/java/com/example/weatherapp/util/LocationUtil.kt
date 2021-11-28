@@ -1,4 +1,4 @@
-package com.example.weatherapp
+package com.example.weatherapp.util
 
 import android.Manifest
 import android.app.Activity
@@ -8,12 +8,12 @@ import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.net.Uri
 import android.provider.Settings
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.weatherapp.WeatherGrid.LatXLngY
+import com.example.weatherapp.R
+import com.example.weatherapp.util.WeatherGrid.LatXLngY
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import java.io.*

@@ -1,4 +1,4 @@
-package com.example.weatherapp
+package com.example.weatherapp.weather
 
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -7,19 +7,23 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import com.example.weatherapp.databinding.ActivityMainBinding
+import com.example.weatherapp.R
+import com.example.weatherapp.databinding.ActivityWeatherBinding
+import com.example.weatherapp.util.LocationUtil
 import com.trello.rxlifecycle4.components.support.RxAppCompatActivity
 import java.util.*
 
-class MainActivity : RxAppCompatActivity() {
+class WeatherActivity : RxAppCompatActivity() {
 
-    private val mainViewModel : MainViewModel by viewModels()
+    private val weatherViewModel : WeatherViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        val binding: ActivityWeatherBinding = DataBindingUtil.setContentView(this,
+            R.layout.activity_weather
+        )
         binding.setLifecycleOwner { this.lifecycle }
-        binding.mainViewModel = mainViewModel
+        binding.weatherViewModel = weatherViewModel
 
         setActionBar()
         setImageButtonListener()
@@ -40,13 +44,13 @@ class MainActivity : RxAppCompatActivity() {
     }
 
     private fun drawMainView() {
-        if (LocationUtil.isLocationPermissionGranted(this@MainActivity)) {
+        if (LocationUtil.isLocationPermissionGranted(this@WeatherActivity)) {
             try {
                 val gridLocation = LocationUtil.getGridLocation(applicationContext)
                 val stationName = LocationUtil.getClosestStation(applicationContext, gridLocation)
-                mainViewModel.refreshWeatherData(gridLocation, stationName)
+                weatherViewModel.refreshWeatherData(gridLocation, stationName)
             } catch (exception: Exception) {
-                Toast.makeText(this@MainActivity, exception.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(this@WeatherActivity, exception.message, Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -60,7 +64,7 @@ class MainActivity : RxAppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == LocationUtil.REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this@MainActivity, "권한을 획득했습니다.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@WeatherActivity, "권한을 획득했습니다.", Toast.LENGTH_LONG).show()
             }
             drawMainView()
         }

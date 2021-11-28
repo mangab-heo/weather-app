@@ -1,4 +1,4 @@
-package com.example.weatherapp;
+package com.example.weatherapp.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import com.example.weatherapp.R;
 import com.example.weatherapp.data.WeatherData;
 
 import java.util.List;

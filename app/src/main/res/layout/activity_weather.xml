@@ -5,14 +5,14 @@
 
     <data>
         <variable
-            name="mainViewModel"
-            type="com.example.weatherapp.MainViewModel" />
+            name="weatherViewModel"
+            type="com.example.weatherapp.weather.WeatherViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity"
+        tools:context=".weather.WeatherActivity"
         android:id="@+id/layout_main">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -31,7 +31,7 @@
                 android:id="@+id/weather_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{mainViewModel.weatherText}"
+                android:text="@{weatherViewModel.weatherText}"
                 android:textSize="@dimen/text_view_size"
                 android:textColor="@color/black"
                 android:textStyle="bold"
@@ -41,7 +41,7 @@
                 android:id="@+id/temperature_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{mainViewModel.weatherData.curTmp}"
+                android:text="@{weatherViewModel.weatherData.curTmp}"
                 android:textSize="@dimen/text_view_size"
                 android:textColor="@color/black"
                 android:paddingVertical="3dp" />
@@ -56,7 +56,7 @@
                     android:id="@+id/pm10_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{mainViewModel.pmData.pmStrs[0]}"
+                    android:text="@{weatherViewModel.pmData.pmStrs[0]}"
                     android:textSize="20dp"
                     android:textColor="@color/purple_700" />
 
@@ -90,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/purple_700"
-                    android:text="@{mainViewModel.pmData.pmStrs[1]}"
+                    android:text="@{weatherViewModel.pmData.pmStrs[1]}"
                     android:textSize="20dp" />
 
                 <TextView
@@ -143,7 +143,7 @@
                 android:layout_marginBottom="30dp"
                 android:layout_gravity="center_horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:item="@{mainViewModel.weatherData}"
+                app:item="@{weatherViewModel.weatherData}"
                 />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

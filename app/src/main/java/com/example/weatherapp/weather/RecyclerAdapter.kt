@@ -1,9 +1,9 @@
-package com.example.weatherapp
+package com.example.weatherapp.weather
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weatherapp.RecyclerAdapter.RecyItemViewHolder
+import com.example.weatherapp.weather.RecyclerAdapter.RecyItemViewHolder
 import com.example.weatherapp.data.WeatherData.WeatherHour
 import com.example.weatherapp.databinding.RecyclerItemBinding
 
