@@ -5,7 +5,7 @@
     <data>
         <variable
             name="item"
-            type="com.example.weatherapp.WeatherData.WeatherHour" />
+            type="com.example.weatherapp.data.WeatherData.WeatherHour" />
     </data>
 
     <LinearLayout

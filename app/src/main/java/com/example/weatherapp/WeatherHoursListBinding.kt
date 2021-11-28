@@ -3,11 +3,12 @@ package com.example.weatherapp
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.weatherapp.data.WeatherData
 
 @BindingAdapter("app:item")
 fun setItems(recyclerView: RecyclerView, item: WeatherData?) {
     item?.let {
-        val recyclerAdapter = RecyclerAdapter(item.weatherHours.subList(item.findStartIdx(), item.weatherHours.size))
+        val recyclerAdapter = RecyclerAdapter(item.weatherHours)
 
         recyclerView.adapter = recyclerAdapter
 

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.example.weatherapp.data.WeatherData;
+
 import java.util.List;
 
 public class WeatherRemoteViewsService extends RemoteViewsService {
@@ -39,25 +41,25 @@ class WeatherRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_list_item);
         WeatherData.WeatherHour curItem = itemList.get(position);
 
-        if ("없음".equals(curItem.pty)) {
-            switch (curItem.sky) {
-                case "맑음": remoteViews.setImageViewResource(R.id.weather_image_view, R.drawable.sunny);break;
-                case "구름 많음": remoteViews.setImageViewResource(R.id.weather_image_view, R.drawable.cloudy);break;
-                case "흐림": remoteViews.setImageViewResource(R.id.weather_image_view, R.drawable.shadowy);break;
-            }
-        }
-        else if (curItem.pty.equals("눈")) remoteViews.setImageViewResource(R.id.weather_image_view, R.drawable.snowy);
-        else remoteViews.setImageViewResource(R.id.weather_image_view, R.drawable.rainy);
-
-        remoteViews.setTextViewText(R.id.tmpViewWidget, curItem.tmp);
-        remoteViews.setTextViewText(R.id.skyView, curItem.sky);
-        remoteViews.setTextViewText(R.id.popView, curItem.pop);
-        remoteViews.setTextViewText(R.id.wsdView, curItem.wsd);
-        remoteViews.setTextViewText(R.id.ptyView, curItem.pty);
-        remoteViews.setTextViewText(R.id.pcpView, curItem.pcp);
-        remoteViews.setTextViewText(R.id.snoView, curItem.sno);
-        remoteViews.setTextViewText(R.id.rehView, curItem.reh);
-        remoteViews.setTextViewText(R.id.fcstTimeView, curItem.fcstTime);
+//        if ("없음".equals(curItem.pty)) {
+//            switch (curItem.sky) {
+//                case "맑음": remoteViews.setImageViewResource(R.id.weather_image_view, R.drawable.sunny);break;
+//                case "구름 많음": remoteViews.setImageViewResource(R.id.weather_image_view, R.drawable.cloudy);break;
+//                case "흐림": remoteViews.setImageViewResource(R.id.weather_image_view, R.drawable.shadowy);break;
+//            }
+//        }
+//        else if (curItem.pty.equals("눈")) remoteViews.setImageViewResource(R.id.weather_image_view, R.drawable.snowy);
+//        else remoteViews.setImageViewResource(R.id.weather_image_view, R.drawable.rainy);
+//
+//        remoteViews.setTextViewText(R.id.tmpViewWidget, curItem.tmp);
+//        remoteViews.setTextViewText(R.id.skyView, curItem.sky);
+//        remoteViews.setTextViewText(R.id.popView, curItem.pop);
+//        remoteViews.setTextViewText(R.id.wsdView, curItem.wsd);
+//        remoteViews.setTextViewText(R.id.ptyView, curItem.pty);
+//        remoteViews.setTextViewText(R.id.pcpView, curItem.pcp);
+//        remoteViews.setTextViewText(R.id.snoView, curItem.sno);
+//        remoteViews.setTextViewText(R.id.rehView, curItem.reh);
+//        remoteViews.setTextViewText(R.id.fcstTimeView, curItem.fcstTime);
 
         return remoteViews;
     }

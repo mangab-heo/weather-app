@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.RecyclerAdapter.RecyItemViewHolder
-import com.example.weatherapp.WeatherData.WeatherHour
+import com.example.weatherapp.data.WeatherData.WeatherHour
 import com.example.weatherapp.databinding.RecyclerItemBinding
 
 class RecyclerAdapter internal constructor(private val itemList: List<WeatherHour>) : RecyclerView.Adapter<RecyItemViewHolder>() {
