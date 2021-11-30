@@ -2,6 +2,7 @@ package com.example.weatherapp.weather
 
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
@@ -11,8 +12,10 @@ import com.example.weatherapp.R
 import com.example.weatherapp.databinding.ActivityWeatherBinding
 import com.example.weatherapp.util.LocationUtil
 import com.trello.rxlifecycle4.components.support.RxAppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
+@AndroidEntryPoint
 class WeatherActivity : RxAppCompatActivity() {
 
     private val weatherViewModel : WeatherViewModel by viewModels()
@@ -24,7 +27,6 @@ class WeatherActivity : RxAppCompatActivity() {
         )
         binding.setLifecycleOwner { this.lifecycle }
         binding.weatherViewModel = weatherViewModel
-
         setActionBar()
         setImageButtonListener()
         drawMainView()
