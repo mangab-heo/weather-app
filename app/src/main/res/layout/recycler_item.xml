@@ -1,136 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center_vertical"
-    android:background="@color/white"
-    android:paddingHorizontal="5dp"
-    >
-    <ImageView
-        android:id="@+id/weather_image_view"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/sunny"
-        android:padding="2dp"
-        android:scaleType="fitCenter"
-        android:contentDescription="weather_image" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="item"
+            type="com.example.weatherapp.data.WeatherData.WeatherHour" />
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        >
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:paddingHorizontal="5dp">
+
+        <ImageView
+            android:id="@+id/weather_image_view"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:customSrc="@{item}"
+            android:padding="2dp"
+            android:scaleType="fitCenter"
+            android:contentDescription="weather_image" />
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="end"
-            android:paddingHorizontal="1dp"
-            >
-            <TextView
-                android:id="@+id/tmpView"
+            android:orientation="horizontal">
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="36 ℃"
-                android:textSize="@dimen/recycler_text_view_size"
-                android:textColor="@color/black"
-                />
-            <TextView
-                android:id="@+id/rehView"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="end"
+                android:paddingHorizontal="1dp">
+
+                <TextView
+                    android:id="@+id/tmpView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{item.tmp}"
+                    android:textSize="@dimen/recycler_text_view_size"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/rehView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{item.reh}"
+                    android:textSize="@dimen/recycler_text_view_size"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="99 %"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="end"
+                android:paddingHorizontal="1dp">
+
+                <TextView
+                    android:id="@+id/skyView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{item.sky}"
+                    android:textSize="@dimen/recycler_text_view_size"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/wsdView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{item.wsd}"
+                    android:textSize="@dimen/recycler_text_view_size"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:paddingHorizontal="1dp">
+
+                <TextView
+                    android:id="@+id/popView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{item.pop}"
+                    android:textSize="@dimen/recycler_text_view_size"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/ptyView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{item.pty}"
+                    android:textSize="@dimen/recycler_text_view_size"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="end"
+                android:paddingHorizontal="1dp">
+
+                <TextView
+                    android:id="@+id/pcpView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{item.pcp}"
+                    android:textSize="@dimen/recycler_text_view_size"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/snoView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{item.sno}"
+                    android:textSize="@dimen/recycler_text_view_size"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/fcstTimeView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="1dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:text="@{item.fcstTime}"
                 android:textSize="@dimen/recycler_text_view_size"
-                android:textColor="@color/black"
-                />
+                android:textColor="@color/black" />
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="end"
-            android:paddingHorizontal="1dp"
-            >
-            <TextView
-                android:id="@+id/skyView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="구름 많음"
-                android:textSize="@dimen/recycler_text_view_size"
-                android:textColor="@color/black"
-                />
-            <TextView
-                android:id="@+id/wsdView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="15.4 m/s"
-                android:textSize="@dimen/recycler_text_view_size"
-                android:textColor="@color/black"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:gravity="end"
-            android:paddingHorizontal="1dp"
-            >
-            <TextView
-                android:id="@+id/popView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="100 %"
-                android:textSize="@dimen/recycler_text_view_size"
-                android:textColor="@color/black"
-                />
-            <TextView
-                android:id="@+id/ptyView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="소나기"
-                android:textSize="@dimen/recycler_text_view_size"
-                android:textColor="@color/black"
-            />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="end"
-            android:paddingHorizontal="1dp"
-            >
-            <TextView
-                android:id="@+id/pcpView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="50 mm 이상"
-                android:textSize="@dimen/recycler_text_view_size"
-                android:textColor="@color/black"
-                />
-            <TextView
-                android:id="@+id/snoView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="5 cm 이상"
-                android:textSize="@dimen/recycler_text_view_size"
-                android:textColor="@color/black"
-                />
-        </LinearLayout>
-        <TextView
-            android:id="@+id/fcstTimeView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingHorizontal="1dp"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:text="18:00"
-            android:textSize="@dimen/recycler_text_view_size"
-            android:textColor="@color/black"
-            />
     </LinearLayout>
-</LinearLayout>
+</layout>
