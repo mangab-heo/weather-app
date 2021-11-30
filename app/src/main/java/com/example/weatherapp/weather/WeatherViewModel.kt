@@ -1,19 +1,21 @@
 package com.example.weatherapp.weather
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.example.weatherapp.data.PmData
 import com.example.weatherapp.data.WeatherData
 import com.example.weatherapp.data.source.DefaultRepository
 import com.example.weatherapp.data.source.Repository
 import com.example.weatherapp.util.WeatherGrid
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
 
-class WeatherViewModel : ViewModel() {
-    private val repository: Repository = DefaultRepository()
+@HiltViewModel
+class WeatherViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
+    private val repository: Repository
+) : ViewModel() {
 
     val weatherData: LiveData<WeatherData> by lazy { _weatherData }
     private val _weatherData: MutableLiveData<WeatherData> = MutableLiveData()

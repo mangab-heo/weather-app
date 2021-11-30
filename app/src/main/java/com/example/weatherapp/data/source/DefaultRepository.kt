@@ -5,9 +5,11 @@ import com.example.weatherapp.data.PmData
 import com.example.weatherapp.data.WeatherData
 import com.example.weatherapp.data.source.remote.RemoteDataSource
 import io.reactivex.rxjava3.core.Observable
+import javax.inject.Inject
 
-class DefaultRepository : Repository {
-    private val remoteDataSource: DataSource = RemoteDataSource()
+class DefaultRepository @Inject constructor(
+    private val remoteDataSource: DataSource
+): Repository {
 
     override fun getObservablePmData(
         stationName: String
