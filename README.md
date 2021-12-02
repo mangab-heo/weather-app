@@ -1,28 +1,19 @@
-# weather-app
+# 날씨 앱
 ## 기능
-오늘 미세먼지, 오늘 날씨, 오늘 온도 알려주기
+오늘~모레 날씨, 오늘 미세먼지 알려주기
+<br>
+## 문서
+[Wiki](https://github.com/mangab0159/weather-app/wiki)
+<br>
+## 동작 화면
+![](https://user-images.githubusercontent.com/39723283/144393839-cbd61b7b-1022-4bf3-a4b0-a71e17e3923a.gif)
+<br>
 ## 일정
-|메인 태스크|서브 태스크|비고|
-|:---|:---|:---|
-|:heavy_check_mark:프로토 타입 화면 구현| | [링크](https://github.com/mangab0159/weather-app/issues/6#issuecomment-870250024)  |
-|:heavy_check_mark:기상 정보 open api 선택| |[링크](https://github.com/mangab0159/weather-app/issues/6#issuecomment-872038728)|
-|:heavy_check_mark:동네예보 조회 api 사용|| |
-| |네트워크 통신|  [링크](https://github.com/mangab0159/weather-app/issues/6#issuecomment-872119615) |
-| |응답 데이터 파싱| [링크](https://github.com/mangab0159/weather-app/issues/6#issuecomment-873346260) <br> [링크](https://github.com/mangab0159/weather-app/issues/6#issuecomment-873363030) <br> [링크](https://github.com/mangab0159/weather-app/issues/6#issuecomment-873519062)|
-| |데이터 뷰에 노출| [링크](https://github.com/mangab0159/weather-app/issues/6#issuecomment-874359646)|
-|:heavy_check_mark:위치 정보 획득 및 적용| | [링크](https://github.com/mangab0159/weather-app/issues/6#issuecomment-876279752) |
-| |위치 권한 획득| |
-| |위치 정보 적용| |
-| |현재 시간 적용 |[링크](https://github.com/mangab0159/weather-app/issues/6#issuecomment-876932779)|
-|:heavy_check_mark:초단기 예보 api 사용| | [링크](https://github.com/mangab0159/weather-app/issues/6#issuecomment-877881896)|
-||통신 및 응답 파싱| |
-||데이터 뷰에 노출| |
-|:heavy_check_mark:미세먼지 조회 api 사용| | [링크](https://github.com/mangab0159/weather-app/issues/6#issuecomment-882152335)|
-| |측정소 위경도 구하기| |
-| |가까운 측정소 찾기| |
-| |미세먼지 api 호출| |
-|:heavy_check_mark:리팩토링 및 에러 처리| | [링크](https://github.com/mangab0159/weather-app/issues/6#issuecomment-901015450)|
-|:heavy_check_mark:위젯 만들기| |[링크](https://github.com/mangab0159/weather-app/issues/6#issuecomment-951795077)|
-| |위젯 레이아웃 및<br> 프로바이더 클래스 생성||
-| |리스트뷰 적용| |
-| |새로고침 버튼 적용| |
+1. [기상 정보 open api 선택](https://github.com/mangab0159/weather-app/wiki/1.-%EA%B8%B0%EC%83%81-%EC%A0%95%EB%B3%B4-open-api-%EC%84%A0%ED%83%9D)
+2. [동네예보 조회 api 사용](https://github.com/mangab0159/weather-app/wiki/2.-%EB%8F%99%EB%84%A4%EC%98%88%EB%B3%B4-%EC%A1%B0%ED%9A%8C-api-%EC%82%AC%EC%9A%A9)
+3. [위치 정보 획득 및 적용](https://github.com/mangab0159/weather-app/wiki/3.-%EC%9C%84%EC%B9%98-%EC%A0%95%EB%B3%B4-%ED%9A%8D%EB%93%9D-%EB%B0%8F-%EC%A0%81%EC%9A%A9)
+4. [초단기 예보 api 사용](https://github.com/mangab0159/weather-app/wiki/4.-%EC%B4%88%EB%8B%A8%EA%B8%B0-%EC%98%88%EB%B3%B4-api-%EC%82%AC%EC%9A%A9)
+5. [미세먼지 조회 api 사용](https://github.com/mangab0159/weather-app/wiki/5.-%EB%AF%B8%EC%84%B8%EB%A8%BC%EC%A7%80-%EC%A1%B0%ED%9A%8C-api-%EC%82%AC%EC%9A%A9)
+6. [리팩토링 및 에러 처리](https://github.com/mangab0159/weather-app/wiki/6.-%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81-%EB%B0%8F-%EC%97%90%EB%9F%AC-%EC%B2%98%EB%A6%AC)
+7. [위젯 만들기](https://github.com/mangab0159/weather-app/wiki/7.-%EC%9C%84%EC%A0%AF-%EB%A7%8C%EB%93%A4%EA%B8%B0)
+8. [MVVM 아키텍처 적용](https://github.com/mangab0159/weather-app/wiki/8.-MVVM-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EC%A0%81%EC%9A%A9)
