@@ -5,7 +5,7 @@
 ## 문서
 [Wiki](https://github.com/mangab0159/weather-app/wiki)
 <br>
-## 동작 화면
+## 화면
 ![](https://user-images.githubusercontent.com/39723283/144393839-cbd61b7b-1022-4bf3-a4b0-a71e17e3923a.gif)
 <br>
 ## 일정
